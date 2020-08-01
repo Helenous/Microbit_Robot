@@ -1,6 +1,6 @@
 # Microbit Robot With The L9110S Motor Driver Board
 
-![robot](https://github.com/Helenous/Microbit_Robot/blob/master/Images/Robot.png)
+![robot](https://github.com/Avmaker/Microbit_Robot/blob/master/Images/Robot.png)
 
 <img src= "images/robot.png" width=800>
 
@@ -8,9 +8,10 @@
 
 - [Description](#description)
 - [Assembling The Robot](#assembling-the-robot)
-- [Understanding How Motors Work](#understanding-how-motors-work)
+- [Understanding How Motors Work](#understanding-how-motors-work) 
+- [How To Make The Robot Move Forward](#how-to-make-the-robot-move-forward)
+- [How To Make The Robot Move Backward](#how-to-make-the-robot-move-backward)
 - [How To Make The Robot Turn Left and Right](#how-to-make-the-robot-turn-left-and-right)
-- [Hoe To Make The Robot Move Forward and Backward](#how-to-make-the-robot-move-forward-and-backward)
 - [How to Stop The Motor](#how-to-stop-the-motor)
 - [Changing The Speed of The Motor](#changing-the-speed-of-the-motor)
 - [Radio control using accelerometer](#radio-control-using-accelerometer)
@@ -45,14 +46,28 @@ Left Motor: B-1A ---> pin0 of the edge connector
 Left Motor: B-1B ---> pin16 of the edge connector
 </pre>
 
-The simplest way to make the motors move is to set one pin to HIGH (1)and the the other pin to LOW(0) (to move full speed forwards). We do this by sending power to the respective GPIO pins using write_digital. 
- 
-To make the make the left motor forwards,we will write in Python: 
-> pin0.write_digital(1); pin16.write_digital(0)
+The simplest way to make the motors move is to set one pin to HIGH (1)and the the other pin to LOW(0) (to move full speed forwards). We do this by sending power to the respective GPIO pins using write_digital.
 
-To move the motor at full speed in reverse, we change which pin is 0 (Low) and 1 (High). 
-Move left motor Reverse:
-> pin0.write_digital(0); pin16.write_digital(1) 
+# How To Make the Robot Move Forward
+
+To move the robot forward, both motors need to go forward, in Python this is how we would write it:
+> pin8.write_digital(1)
+
+> pin12.write_digital(0)
+
+> pin0.write_digital(1)
+
+> pin16.write_digital(0)
+
+# How To Make The Robot Move Backward
+To move robot backward, both motors need to go backward, in Python this is how we would write it: 
+> pin8.write_digital(0)
+
+> pin12.write_digital(1)
+
+> pin0.write_digital(0)
+
+> pin16.write_digital(1) 
 
 [Back To The Top](#Microbit-Robot-with-the-L9110S-motor-driver-board)
 
@@ -62,47 +77,88 @@ To turn the robot left we need to tell one motor to go forward, and the other to
 Motor A is the right motor and it’s connected to pins 8 and 12. 
 Motor B is the left motor and is connected to pins 0 and 16.  
 
-So to turn the robot left, motor A needs to go forwards and motor B backwards. 
-> pin8.write_digital(1); pin12.write_digital(0)
+To turn the robot to the right, motor B needs to go forwards and motor A backwards.
 
-> pin0.write_digital(0); pin16.write_digital(1)
+> pin8.write_digital(0)
 
-The code to turn the robot right is a reverse of what we set for turning left. 
-> pin8.write_digital(0); pin12.write_digital(1)
+> pin12.write_digital(1)
 
-> pin0.write_digital(1); pin16.write_digital(0)
+> pin0.write_digital(1)
 
-## How To Make The Robot Move Forward and Backward
-To move robot forward, both motors need to go forward:
-> pin8.write_digital(1); pin12.write_digital(0)
+> pin16.write_digital(0)
 
-> pin0.write_digital(1); pin16.write_digital(0)
+To turn the robot to the left, motor A needs to go forwards and motor B
+ backwards.
 
-To move robot backward, both motors need to go backward:
-> pin8.write_digital(0); pin12.write_digital(1)
+> pin8.write_digital(1)
 
-> pin0.write_digital(0); pin16.write_digital(1)
+> pin12.write_digital(0)
+
+> pin0.write_digital(0)
+
+> pin16.write_digital(1)
 
 ## How To Stop The Motor
 We will need to set all of the GPIO pins connected to the motors to off:
-> pin8.write_digital(0); pin12.write_digital(0)
 
-> pin0.write_digital(0); pin16.write_digital(0)
+> pin8.write_digital(0)
+
+> pin12.write_digital(0
+> The Python code can be found in the Microbit Robot folder
+
+[Back To The Top](#Microbit-Robot-with-the-L9110S-motor-driver-board)
+
+)
+
+> pin0.write_digital(0)
+
+> pin16.write_digital(0)
 
 [Back To The Top](#Microbit-Robot-with-the-L9110S-motor-driver-board)
 
 # Changing The Speed of The Motor
 
-If we want to change the speed of a motor, so that it is not going at full speed all the time, we need to use PWM (Pulse Width Modulation). This is a means of changing the amount of power given to the motor by switching it on and off very fast. 
-
-To change the PWM value of a pin, we must use the analog_write commands. These can be set to a value between 0 (always off) to 1023 (always on), so 50% would be 511.(which half of 1023)
-Here are the commands to change the speed of the Right motor to approx 50% (value is 511)
-Move right motor forwards at 50%
-> pin8.write_analog(511); pin12.write_digital(0)
+If we want to change the speed of a motor, so that it is not going at full speed all the time, we need to use PWM (Pulse Width Modulation). This is a means of changing the amount of power given to the motor by switching it on and off very fast.
  
-What about moving the right motor Reverse at 50%?
-Doing this for the motors moving in reverse is a little different. We need to change the second pin to 1 for reverse. We then simply take the number (512) in this case) away from 1023, giving 512:
-> pin8.write_analog(512); pin12.write_digital(1)
+To change the PWM value of a pin, we must use the write_analog (NOT write_digital) commands. These can be set to a value between 0 (always off) to 1023 (always on). So for example, running a motor speed at 40% would have a value of 410 (40% of 1023)
+
+## Moving the robot forward, at a 40% speed:
+
+> pin8.write_analog(410)
+
+> pin12.write_digital(0)
+
+> pin0.write_analog(410)
+
+> pin16.write_digital(0)
+
+[Back To The Top](#Microbit-Robot-with-the-L9110S-motor-driver-board)
+
+## Move the robot smoothly to the right. We will set the left motor at a 58% speed (1023*58%=593), and the right  motor at 10% speed (1023*10% =102). We will need to write:
+
+>pin8.write_digital(0)
+
+> pin12.write_analog(102)
+
+>pin0.write_analog(593)
+
+>pin16.write_digital(0)
+
+## Moving the robot backward at lower speed
+WARNING! REVERSE IS DIFFERENT!
+What about moving the motors Reverse at 40% ? 
+Doing this for the motors moving in reverse is a little different:
+We need to change the second pin to 1 for reverse. 
+We then simply take the number (410 in this case, 40% of 1023) away from 1023, giving 613:
+
+> pin8.write_analog(613)
+
+> pin12.write_digital(1)
+
+> pin0.write_analog(613)
+
+> pin16.write_digital(1)
+
 
 [Back To The Top](#Microbit-Robot-with-the-L9110S-motor-driver-board)
 
@@ -169,10 +225,6 @@ Sleep for the given number of micro seconds.
 
 utime.ticks_diff(ticks1, ticks2)
 Measure ticks difference between values returned from ticks_us()
-
-> The Python code can be found in the Microbit Robot folder
-
-[Back To The Top](#Microbit-Robot-with-the-L9110S-motor-driver-board)
 
 # Components 
 **What you will need**
