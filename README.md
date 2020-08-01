@@ -104,11 +104,6 @@ We will need to set all of the GPIO pins connected to the motors to off:
 > pin8.write_digital(0)
 
 > pin12.write_digital(0
-> The Python code can be found in the Microbit Robot folder
-
-[Back To The Top](#Microbit-Robot-with-the-L9110S-motor-driver-board)
-
-)
 
 > pin0.write_digital(0)
 
@@ -134,7 +129,8 @@ To change the PWM value of a pin, we must use the write_analog (NOT write_digita
 
 [Back To The Top](#Microbit-Robot-with-the-L9110S-motor-driver-board)
 
-## Move the robot smoothly to the right. We will set the left motor at a 58% speed (1023*58%=593), and the right  motor at 10% speed (1023*10% =102). We will need to write:
+## Move the robot smoothly to the right. 
+We will set the left motor at a 58% speed (1023*58%=593), and the right  motor at 10% speed (1023*10% =102). We will need to write:
 
 >pin8.write_digital(0)
 
