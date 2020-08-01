@@ -16,23 +16,25 @@ def sonar( ):
     while pin14.read_digital() == 1:# wait for Echo pulse to return
         pass
     end = ticks_us() # define ending time
-    cm = ticks_diff(end, start) // 58
+    cm = ticks_diff(end, start) // 58   # Distance = Time divided by 58
     return cm
 
 while True:
     
     if sonar() < 15:
+                                    #GO BACKWARD AT 100% SPPED
         pin8.write_digital(0)
         pin12.write_digital(1)
         pin0.write_digital(0)
         pin16.write_digital(1)
         sleep (1000)
+                                    #SMOOTH TURN RIGHT AR REDUCED SPEED
         pin8.write_digital(0)
-        pin12.write_analog(311)
-        pin0.write_digital(1)
+        pin12.write_analog(102)
+        pin0.write_analog(593)
         pin16.write_digital(0)
-        sleep(200)
-    else:
+        sleep(700)
+    else:                           #GO FORWARD AT 100% SPEED
         pin8.write_digital(1)
         pin12.write_digital(0)
         pin0.write_digital(1)
