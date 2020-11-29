@@ -1,7 +1,7 @@
 from microbit import *
 
 while True:
-                                #forward at 100% speed
+                                #forward at 100% speed #testNov29
         pin8.write_digital(1)
         pin12.write_digital(0)
         pin0.write_digital(1)
